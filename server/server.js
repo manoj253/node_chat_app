@@ -13,7 +13,16 @@ io.on('connection',(socket)=>{
 	socket.on('disconnect',()=>{
 		console.log('user disconnected')
 	});
-	
+	socket.emit('newMessage',{
+		from:"Admin",
+		text:"Welcome to chat app",
+		createdAt:new Date().getTime()
+	});
+	socket.broadcast.emit('newMessage',{
+		from:"Admin",
+		text:"New user joined",
+		createdAt:new Date().getTime()
+	})
 	socket.on('createMessage',(msg)=>{
 		// console.log(msg)
 		io.emit('newMessage',{
